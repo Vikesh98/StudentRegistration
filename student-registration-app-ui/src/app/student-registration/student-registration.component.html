@@ -1,0 +1,124 @@
+<h3 style="color: blue;">New Student Registration</h3>
+<div [hidden]="submitted"  style="width: 500px;">
+<div style="padding-top: 5%;">
+
+
+  <div class="p-grid">
+
+    <div class="p-field p-col-12 p-md-12">
+      <span class="p-float-label">
+        <label for="clientName"><b>Full Name</b></label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="student.name" #name="ngModel"
+          name="name">
+
+      </span>
+      <span class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.errors.required" class="errors">Full name is required.</div>
+      </span>
+    </div>
+
+
+  </div><br>
+
+  <div class="p-grid">
+
+
+    <div class="p-field p-col-12 p-md-12">
+      <span class="p-float-label">
+        <label for="address"><b>Address</b></label>
+        <input type="text" class="form-control" id="address" required [(ngModel)]="student.address" #address="ngModel"
+          name="address">
+
+      </span>
+      <span class="error" *ngIf="address.invalid && (address.dirty || address.touched)">
+        <div *ngIf="address.errors.required" class="errors">Address is required.</div>
+      </span>
+    </div>
+
+
+  </div><br>
+
+
+  <label for="dob"><b>Qualification : </b>&nbsp;&nbsp;&nbsp;</label>
+  <p-dropdown [options]="qual" [(ngModel)]="test" placeholder="Select" optionLabel="qualification" [showClear]="true"></p-dropdown>
+  <br>
+
+
+  <div class="p-grid">
+
+
+    <div class="p-field p-col-12 p-md-12">
+      <span class="p-float-label">
+        <label for="mobile_no"><b>Mobile Number</b></label>
+        <input type="text" class="form-control" id="mobile_no" required minlength="10" maxlength="15"
+          autocomplete="autocomplete" [(ngModel)]="student.mobile_no" #mobile_no="ngModel" name="mobile_no">
+
+      </span>
+      <span class="error" *ngIf="mobile_no.invalid && (mobile_no.dirty || mobile_no.touched)">
+        <div *ngIf="mobile_no.errors.required" class="errors">Mobile number is required.</div>
+        <div *ngIf="mobile_no.errors.minlength" class="errors">Size must be between 10 & 15.</div>
+        <div *ngIf="mobile_no.errors.maxlength" class="errors">Size must be between 10 & 15.</div>
+      </span>
+    </div>
+
+  </div><br>
+
+
+
+  <div class="p-grid">
+
+    <label for="dob"><b>Date Of Birth</b></label>
+    <div class="input-group">
+
+      <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="date" ngbDatepicker 
+        #d="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button" ></button>
+      </div>
+    </div>
+  </div><br>
+
+    <button type="submit" (click)="addStudent(student)" class="btn btn-success">Submit</button>
+
+    
+
+</div>
+
+  
+</div><br>
+
+
+<div *ngIf="show">
+  <h4>You submitted successfully!</h4>
+</div>
+<button type="submit" (click)="getStudents()" class="btn btn-success">Get Students List</button>
+<div [hidden]="!populate">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Students List</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Date of Birth</th>
+          <th>Qualification</th>
+          <th>Address</th>
+          <th>Mobile No</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of students | async">
+          <td>{{i.name}}</td>
+          <td>{{i.dob}}</td>
+          <td>{{i.qualification}}</td>
+          <td>{{i.address}}</td>
+          <td>{{i.mobile_no}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
